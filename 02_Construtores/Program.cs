@@ -54,12 +54,12 @@ namespace _02_Contrutores
         //Overload (Sobrecarga) de Cosnstrutor
 
         //Declarar mais de um construtor com a lista de argumentos diferentes
-
-        public Quadrado()
+        //this(5) aciona o construtor que recebe um parâmetro
+        public Quadrado():this(5)
 
         {
 
-            this.Lado = 5;
+            //this.Lado = 5;
 
         }
 
@@ -68,7 +68,7 @@ namespace _02_Contrutores
         {
 
             //this: acessa o membro(atributo e método) da clase
-
+            if(Lado > 0)
             this.Lado = Lado;
 
         }
