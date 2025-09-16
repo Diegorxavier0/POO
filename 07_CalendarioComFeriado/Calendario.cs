@@ -62,7 +62,7 @@ namespace _07_CalendarioComFeriado
 
             // Recupera os feriados do mês atual
             Feriado[] diasFeriados = RetornaFeriados();
-            bool ehFeriado;
+            //bool ehFeriado;
 
             // Impressão do calendário
             for (int semana = 0; semana < 6; semana++)
@@ -71,7 +71,7 @@ namespace _07_CalendarioComFeriado
                 {
                     if (calendario[semana, diaSemana] != 0) // Só imprime se houver um dia válido
                     {
-                        ehFeriado = false;
+                       /* ehFeriado = false;
 
                         // Verifica se o dia é feriado
                         for (int posicaoFeriados = 0; posicaoFeriados < diasFeriados.Length; posicaoFeriados++)
@@ -82,10 +82,12 @@ namespace _07_CalendarioComFeriado
                                 ehFeriado = true;
                                 break; // Achou, não precisa continuar procurando
                             }
-                        }
+                        }*/
 
                         // Se for feriado ou domingo → pinta em vermelho
-                        if (ehFeriado || diaSemana == 0)
+                       // if (ehFeriado || diaSemana == 0)
+                        if (diasFeriados.Any( feriado => feriado != null && feriado.Dia== calendario[semana,diaSemana])||
+                            diaSemana == 0) 
                             Console.ForegroundColor = ConsoleColor.Red;
 
                         // Imprime o número do dia com 2 dígitos (01, 02, ...)
