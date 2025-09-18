@@ -26,8 +26,8 @@ namespace _08__Aluno
             // Criação do objeto Aluno
             Aluno aluno = new Aluno(nome, idade, nota1, nota2);
 
-            // Saída formatada
-            Console.WriteLine("\n--- Resultado ---");
+
+            //Tudo que aparecerá na tela
             Console.WriteLine($"Nome: {aluno.Nome}");
             Console.WriteLine($"Idade: {aluno.Idade}");
             Console.WriteLine($"Nota 1: {aluno.Nota1}");
