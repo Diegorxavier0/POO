@@ -1,105 +1,128 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace _08__Aluno
+class Program
+
 {
-    internal class Program
-    {
-        static void Main(string[] args)
-        {
-            // Entrada de dados
-            Console.Write("Digite o nome do aluno: ");
-            string nome = Console.ReadLine();
 
-            Console.Write("Digite a idade do aluno: ");
-            int idade = int.Parse(Console.ReadLine());
+    static void Main(string[] args)
 
-            Console.Write("Digite a primeira nota: ");
-            double nota1 = double.Parse(Console.ReadLine());
-
-            Console.Write("Digite a segunda nota: ");
-            double nota2 = double.Parse(Console.ReadLine());
-
-            // Criação do objeto Aluno
-            Aluno aluno = new Aluno(nome, idade, nota1, nota2);
-
-
-            //Tudo que aparecerá na tela
-            Console.WriteLine($"Nome: {aluno.Nome}");
-            Console.WriteLine($"Idade: {aluno.Idade}");
-            Console.WriteLine($"Nota 1: {aluno.Nota1}");
-            Console.WriteLine($"Nota 2: {aluno.Nota2}");
-            Console.WriteLine($"Média: {aluno.Media:F2}");
-            Console.WriteLine($"Situação: {aluno.Situacao}");
-        }
-    }
-
-    public class Aluno
     {
 
-        private string nome;
-        private int idade;
-        private double nota1;
-        private double nota2;
+        Console.Write("Digite o nome do aluno: ");
 
-        public Aluno(string nome, int idade, double nota1, double nota2)
-        {
-            this.nome = nome;
-            this.idade = idade;
-            this.nota1 = nota1;
-            this.nota2 = nota2;
-        }
+        string nome = Console.ReadLine();
 
-        //Ciando as propriedades
+        Aluno aluno = new Aluno(nome);
 
-        public string Nome
-        {
-            get { return nome; }//somente get pois só é leitura
-        }
+        Console.Write("Digite a idade do aluno: ");
 
-        public int Idade
-        {
-            get { return idade; }
-            set
-            {
-                if (value < 0) idade = 0; // regra: não pode ser negativo
-                else idade = value;
-            }
-        }
+        int idade = int.Parse(Console.ReadLine());
 
-        public double Nota1
-        {
-            get { return nota1; }
-            set { nota1 = value; }
-        }
+        aluno.Idade = idade;
 
-        public double Nota2
-        {
-            get { return nota2; }
-            set { nota2 = value; }
-        }
+        Console.Write("Digite a primeira nota: ");
 
-        public double Media
-        {
-            get { return (nota1 + nota2) / 2; }
-        }
+        aluno.Nota1 = double.Parse(Console.ReadLine());
 
-        public string Situacao 
-        {
-            get
-            {
-                if (Media >= 6)
-                {
-                    return "Aprovado";
-                }
-                else
-                {
-                    return "Reprovado";
-                }
-            }
-        }
+        Console.Write("Digite a segunda nota: ");
+
+        aluno.Nota2 = double.Parse(Console.ReadLine());
+
+        Console.WriteLine("\n--- Resultado ---");
+
+        Console.WriteLine($"Nome: {aluno.Nome}");
+
+        Console.WriteLine($"Idade: {aluno.Idade}");
+
+        Console.WriteLine($"Nota 1: {aluno.Nota1}");
+
+        Console.WriteLine($"Nota 2: {aluno.Nota2}");
+
+        Console.WriteLine($"Média: {aluno.Media:F2}");
+
+        Console.WriteLine($"Situação: {aluno.Situacao}");
+
     }
+
 }
+
+public class Aluno
+
+{
+
+    private string nome;
+
+    public string Nome
+
+    {
+
+        get { return nome; }
+
+    }
+
+    private int idade;
+
+    public int Idade
+
+    {
+
+        get { return idade; }
+
+        set
+
+        {
+
+            if (value >= 0)
+
+            { idade = value; }
+
+            else
+
+            {
+
+                Console.WriteLine("Idade inválida");
+
+
+            }
+
+        }
+
+    }
+
+    public double Nota1 { get; set; }
+
+    public double Nota2 { get; set; }
+
+    public double Media
+
+    {
+
+        get { return (Nota1 + Nota2) / 2; }
+
+    }
+
+    public string Situacao
+
+    {
+
+        get
+
+        {
+
+            return Media >= 6 ? "Aprovado" : "Reprovado";
+
+        }
+
+    }
+
+    public Aluno(string nome)
+
+    {
+
+        this.nome = nome;
+
+    }
+
+}
+
+
