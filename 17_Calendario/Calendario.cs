@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace _17_Calendario
 {
@@ -25,11 +24,7 @@ namespace _17_Calendario
         private void gerarCalendario()
         {
             int diasDoMes = DateTime.DaysInMonth(ano, (int)mes);
-
-            //primeiroDiaMes = new DateTime(ano, mes, 1);
             int diaSemanaInicio = (int)primeiroDiaMes.DayOfWeek;
-
-            //calendario = new int[6, 7];
             int dia = 1;
 
             for (int semana = 0; semana < 6; semana++)
@@ -51,27 +46,23 @@ namespace _17_Calendario
 
         public void ImprimirCalendario()
         {
-            Console.WriteLine($"\nCalendário de " +
-                                $"{primeiroDiaMes.ToString("MMMM")} de {ano}");
-
+            Console.WriteLine($"\nCalendário de {primeiroDiaMes.ToString("MMMM")} de {ano}");
             Console.WriteLine("DOM\tSEG\tTER\tQUA\tQUI\tSEX\tSAB");
 
             List<Feriado> diasFeriados = RetornaFeriados();
-            //bool ehFeriado;
 
-            //impressão do calendário
             for (int semana = 0; semana < 6; semana++)
             {
                 for (int diaSemana = 0; diaSemana < 7; diaSemana++)
                 {
                     if (calendario[semana, diaSemana] != 0)
                     {
+                        if (diasFeriados.Any(feriado => feriado != null && feriado.Dia == calendario[semana, diaSemana])
+    ||                   (DiaDaSemana)diaSemana == DiaDaSemana.Domingo)
 
-                        if (diasFeriados.Any(feriado => feriado != null && feriado.Dia == calendario[semana, diaSemana]) || diaSemana == 0)
                             Console.ForegroundColor = ConsoleColor.Red;
 
                         Console.Write(calendario[semana, diaSemana].ToString("D2") + "\t");
-
                         Console.ResetColor();
                     }
                     else
@@ -83,21 +74,17 @@ namespace _17_Calendario
             }
 
             Console.Write("\nFeriados: ");
-
             foreach (Feriado diaFeriado in diasFeriados)
             {
                 if (diaFeriado != null)
                     Console.Write($"{diaFeriado.Dia:D2}-{diaFeriado.Descricao} \t");
-
             }
-
+            Console.WriteLine();
         }
 
         private List<Feriado> RetornaFeriados()
         {
             List<Feriado> feriados = new List<Feriado>();
-
-            //int indice = 0;
 
             if (mes == Mes.Janeiro) feriados.Add(new Feriado(1, "Confraternização Universal"));
             else if (mes == Mes.Abril)
@@ -120,64 +107,33 @@ namespace _17_Calendario
                 feriados.Add(new Feriado(8, "Padroeira da Cidade"));
                 feriados.Add(new Feriado(25, "Natal"));
             }
-            DateTime domingoDePascoa = DomingoDePascoa();
 
+            DateTime domingoDePascoa = DomingoDePascoa();
             DateTime carnaval = domingoDePascoa.AddDays(-47);
             DateTime sextaFeiraSanta = domingoDePascoa.AddDays(-2);
-            DateTime CorpuChrist = domingoDePascoa.AddDays(60);
+            DateTime corpusChristi = domingoDePascoa.AddDays(60);
 
-            if ((Mes)domingoDePascoa.Month == mes)
-                feriados.Add(new Feriado(domingoDePascoa.Day, "Páscoa"));
+            if ((Mes)domingoDePascoa.Month == mes) feriados.Add(new Feriado(domingoDePascoa.Day, "Páscoa"));
+            if ((Mes)carnaval.Month == mes) feriados.Add(new Feriado(carnaval.Day, "Carnaval"));
+            if ((Mes)sextaFeiraSanta.Month == mes) feriados.Add(new Feriado(sextaFeiraSanta.Day, "Sexta Feira Santa"));
+            if ((Mes)corpusChristi.Month == mes) feriados.Add(new Feriado(corpusChristi.Day, "Corpus Christi"));
 
-            if ((Mes)carnaval.Month == mes)
-                feriados.Add(new Feriado(carnaval.Day, "Carnaval"));
-
-            if ((Mes)sextaFeiraSanta.Month == mes)
-                feriados.Add(new Feriado(sextaFeiraSanta.Day, "Sexta Feira Santa"));
-
-            if ((Mes)CorpuChrist.Month == mes)
-                feriados.Add(new Feriado(CorpuChrist.Day, "Corpus Christi"));
-
-            //Array.Sort(feriados);
+            // ⚡ Aqui foi a única mudança real: ordenar os feriados pelo dia
+            feriados.Sort();
 
             return feriados;
         }
 
         private DateTime DomingoDePascoa()
         {
-            DateTime domingoDePascoa;
-            int X = 0, Y = 0, a, b, c, d, g, dia, mes;
+            int X = 24, Y = 5, a, b, c, d, g, dia, mes;
 
-            if (ano <= 1699)
-            {
-                X = 22;
-                Y = 2;
-            }
-            else if (ano <= 1799)
-            {
-                X = 23;
-                Y = 3;
-            }
-            else if (ano <= 1899)
-            {
-                X = 24;
-                Y = 4;
-            }
-            else if (ano <= 2099)
-            {
-                X = 24;
-                Y = 5;
-            }
-            else if (ano <= 2199)
-            {
-                X = 24;
-                Y = 6;
-            }
-            else if (ano <= 2299)
-            {
-                X = 24;
-                Y = 7;
-            }
+            if (ano <= 1699) { X = 22; Y = 2; }
+            else if (ano <= 1799) { X = 23; Y = 3; }
+            else if (ano <= 1899) { X = 24; Y = 4; }
+            else if (ano <= 2099) { X = 24; Y = 5; }
+            else if (ano <= 2199) { X = 24; Y = 6; }
+            else if (ano <= 2299) { X = 24; Y = 7; }
 
             a = ano % 19;
             b = ano % 4;
@@ -187,18 +143,16 @@ namespace _17_Calendario
 
             if ((d + g) > 9)
             {
-                dia = (d + g - 9);
+                dia = d + g - 9;
                 mes = 4;
             }
             else
             {
-                dia = (d + g + 22);
+                dia = d + g + 22;
                 mes = 3;
             }
 
-            domingoDePascoa = new DateTime(ano, mes, dia);
-
-            return domingoDePascoa;
+            return new DateTime(ano, mes, dia);
         }
     }
 }
