@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace _18_ValidaCPF
 {
-    public interface IDocumento
+    internal interface IDocumento
     {
         string Numero { get; }
         bool Validar();

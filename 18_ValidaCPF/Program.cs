@@ -8,7 +8,7 @@ namespace _18_ValidaCPF
         {
 
             Console.Write("Digite o tipo de documento (CPF/CNPJ): ");
-            string tipo = Console.ReadLine().ToUpper();
+            string tipo = Console.ReadLine().ToUpper();//ToUpper converte tudo para maiusculo cpf, CPF
             if (tipo != "CPF" && tipo != "CNPJ")
             {
                 Console.WriteLine("Tipo inválido! Digite apenas CPF ou CNPJ.");

@@ -5,7 +5,7 @@ using _18_ValidaCPF;
 
 public class CPF : IDocumento//segue a interface
 {
-    public string Numero { get; private set; }
+    public string Numero { get; private set; }//private set permite alterar o valor do cpf, dentro da classe
 
     public CPF(string numero)
     {
