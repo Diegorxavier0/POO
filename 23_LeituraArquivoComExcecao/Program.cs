@@ -23,7 +23,7 @@ namespace _23_LeituraArquivoComExcecao
             }
             catch (UnauthorizedAccessException)
             {
-                Console.WriteLine("Acesso negado! Você não tem permissão para ler este arquivo.");
+                Console.WriteLine($"Acesso negado! Você não tem permissão para ler o arquivo {caminhoArquivo}.");
             }
             finally
             {
